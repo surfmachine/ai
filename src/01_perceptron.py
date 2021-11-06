@@ -125,12 +125,13 @@ def fy(x):
 samples = Samples(number_of_samples, fy)
 samples.plot()
 
-perceptron = Perceptron(input_dimension, epochs=epochs, learning_rate=learning_rate)
-perceptron.train(samples.get_features(), samples.get_labels())
 
 print("#")
 print("# Train Perceptron:")
 print("#")
+perceptron = Perceptron(input_dimension, epochs=epochs, learning_rate=learning_rate)
+perceptron.train(samples.get_features(), samples.get_labels())
+
 print("- weights:", perceptron.weights)
 print("- bias   :", perceptron.bias)
 samples.inference(perceptron)
