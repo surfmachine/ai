@@ -53,7 +53,7 @@ Installation und Konfiguration von Visual Studio Code.
 ### Einstellungen
 1. Start VS Code
 2. Installation der Python Extension
-3. Auf der linken Seite den Plugin Button klicken
+3. Auf der linken Seite den Plugin Button klicken<br />
    ![](img/installation-vscode-1.png)
 4. Im Suchfeld "Python" eingeben<br /> 
    ![](img/installation-vscode-2.png)
