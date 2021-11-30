@@ -1,9 +1,14 @@
-# Installation Steps for Miniconda
+# Installation Steps 
 
 - [Software](#software)
+  - [Miniconda](#miniconda) 
+  - [Visual Studio Code](#visual-studio-code)
+  - [GIT](#git)
 - [Projekt Setup](#projekt-setup)
 - [Häufige Befehle](#befehle)
-
+  - [Conda / Miniconda](#conda--miniconda)
+  - [Conda Environment](#conda-environment)
+  - [VS Code](#vs-code) 
 
 # Software
 
@@ -145,7 +150,7 @@ conda list                           | Show packages of active environment
 conda install [pachagename]          | Install Package
 conda update [pachagename]           | Update Package 
 
-### Conda Umgebung
+## Conda Environment
 
 Installation einer Conda Umgebung mit einer `environment.yml` Datei:
 1. Git Bash oder Anaconde Prompt (Windows) oder Bash (Linux) starten
