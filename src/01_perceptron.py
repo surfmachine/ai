@@ -4,7 +4,7 @@ from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 
 # =====================================================================================================================
-# Perceptron implementaion and experiments
+# Aufgabe 01 - Perceptron
 # 30.10.2021, Thomas Iten
 # =====================================================================================================================
 
