@@ -3,7 +3,7 @@
 Aufgaben zum CAS Artificial Intelligence der Berner Fachhochschule BFH.<br />
 Q4/2021 - Q1/2022, Thomas Iten
 
-**Samples**
+**Aufgaben**
 - [01 Perceptron](src/01_perceptron.py)
 - [02 Gradient Descent](src/02_gradient_descent.ipynb)
 - [03 PyTorch S&P500 Classifier](src/03_pytorch_sp500_binary.ipynb)
