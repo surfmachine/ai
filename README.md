@@ -12,7 +12,7 @@ Q4/2021 - Q1/2022, Thomas Iten
 - [06 CNN fashion mnist under attack](src/06_cnn/06_cnn_fashion_mnist.ipynb)
 - [07 DCGAN with faces](src/07_gan/07_dcgan_faces.ipynb)
 - [08 Temporal Fusion Transformer with S&P 500](src/08_tft/08_pytorch_tft_sp500.ipynb)
-
+- [09 DRL Monte Carlo](src/09_drl_mc/09_1_drl_monte_carlo.ipynb)
 
 **Quiz**
 - [Layer Shapes](quiz/02_Layer_Shapes.png)
