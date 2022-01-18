@@ -14,6 +14,8 @@ Q4/2021 - Q1/2022, Thomas Iten
 - [08 Temporal Fusion Transformer with S&P 500](src/08_tft/08_pytorch_tft_sp500.ipynb)
 - [09 DRL Monte Carlo Black Jack](src/09_drl_mc/09_1_drl_monte_carlo.ipynb)
 - [10 DRL Monte Carlo Frozen Lake](src/10_drl_mc_fl/10_drl_frozen_lake.ipynb)
+- [11 Temp Diff Cliff Walking](src/11_drl_sarsa/11_1_temp_diff_cliff_walking.ipynb)
+- [11 Temp Diff Frozen Lake](src/11_drl_sarsa/11_2_temp_diff_frozen_lake.ipynb)
 
 **Quiz**
 - [Layer Shapes](quiz/02_Layer_Shapes.png)
