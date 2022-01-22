@@ -12,10 +12,13 @@ Q4/2021 - Q1/2022, Thomas Iten
 - [06 CNN fashion mnist under attack](src/06_cnn/06_cnn_fashion_mnist.ipynb)
 - [07 DCGAN with faces](src/07_gan/07_dcgan_faces.ipynb)
 - [08 Temporal Fusion Transformer with S&P 500](src/08_tft/08_pytorch_tft_sp500.ipynb)
-- [09 DRL Monte Carlo Black Jack](src/09_drl_mc/09_1_drl_monte_carlo.ipynb)
-- [10 DRL Monte Carlo Frozen Lake](src/10_drl_mc_fl/10_drl_frozen_lake.ipynb)
+
+Reinforcement Learning:
+- [09 Monte Carlo Black Jack](src/09_drl_mc/09_1_drl_monte_carlo.ipynb)
+- [10 Monte Carlo Frozen Lake](src/10_drl_mc_fl/10_drl_frozen_lake.ipynb)
 - [11 Temp Diff Cliff Walking](src/11_drl_sarsa/11_1_temp_diff_cliff_walking.ipynb)
 - [11 Temp Diff Frozen Lake](src/11_drl_sarsa/11_2_temp_diff_frozen_lake.ipynb)
+- [11 Trading Environment](src/11_trading_env/11_trading_env.ipynb)
 
 **Quiz**
 - [Layer Shapes](quiz/02_Layer_Shapes.png)
