@@ -19,6 +19,8 @@ Reinforcement Learning:
 - [11 Temp Diff Cliff Walking](src/11_drl_sarsa/11_1_temp_diff_cliff_walking.ipynb)
 - [11 Temp Diff Frozen Lake](src/11_drl_sarsa/11_2_temp_diff_frozen_lake.ipynb)
 - [11 Trading Environment](src/11_trading_env/11_trading_env.ipynb)
+- [12 Discretization MountainCar](src/12_discretization/12_discretization_mountain_car.ipynb)
+- [12 Discretization CartPol](src/12_discretization/12_discretization_cartpol.ipynb)
 
 **Quiz**
 - [Layer Shapes](quiz/02_Layer_Shapes.png)
