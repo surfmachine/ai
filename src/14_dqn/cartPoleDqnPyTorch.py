@@ -209,5 +209,5 @@ if __name__ == "__main__":
     agent = Agent(env)
     agent.train(num_episodes=400)
     # Play
-    # input("Play?")
-    # agent.play(num_episodes=50, render=True)
+    input("Play?")
+    agent.play(num_episodes=12, render=True)
