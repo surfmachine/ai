@@ -21,6 +21,8 @@ Reinforcement Learning:
 - [11 Trading Environment](src/11_trading_env/11_trading_env.ipynb)
 - [12 Discretization MountainCar](src/12_discretization/12_discretization_mountain_car.ipynb)
 - [12 Discretization CartPol](src/12_discretization/12_discretization_cartpol.ipynb)
+- [13 DQN CartPol with PyTorch Lightning](src/13_dqn_simple/dqn_cartpole.ipynb)
+- [14 DQN CartPol with PyTorch](src/14_dqn/cartPoleDqnPyTorch.py)
 
 **Quiz**
 - [Layer Shapes](quiz/02_Layer_Shapes.png)
