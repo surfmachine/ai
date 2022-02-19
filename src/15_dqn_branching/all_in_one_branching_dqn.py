@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# Aufgabe 15: Branching DQN with soft copy weights update
+# Aufgabe 15: Branching DQN with soft copy of weights (weighted update)
 # 19.02.2022, Thomas Iten
 #
 # Implementation changes:
@@ -13,7 +13,7 @@
 # References:
 # - https://pylessons.com/BipedalWalker-v3-PPO
 # - https://arxiv.org/pdf/1711.08946.pdf
-# •	https://github.com/MoMe36/BranchingDQN
+# -	https://github.com/MoMe36/BranchingDQN
 # ---------------------------------------------------------------------------------------------------------------------
 import collections
 import os
