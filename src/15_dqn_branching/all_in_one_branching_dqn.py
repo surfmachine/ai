@@ -198,11 +198,11 @@ class AgentConfig:
     def __init__(self,
                  epsilon_start = 1.,
                  epsilon_final = 0.01,
-                 epsilon_decay = 8000,
+                 epsilon_decay = 800,               # Orig=8000
                  gamma = 0.99,
                  lr = 1e-4,
-                 target_net_update_tau = 0.1,       # Orig=None, changed for weighted update to 0.1 [0.0. ... 1.0]
-                 target_net_update_freq = 100,      # Orig=1000, changed for weighted update to 100
+                 target_net_update_tau = 0.3,       # Orig=None, changed for weighted update to 0.1 [0.0. ... 1.0]
+                 target_net_update_freq = 300,      # Orig=1000, changed for weighted update to 100
                  memory_size = 100000,
                  batch_size = 128,
                  learning_starts = 5000,
