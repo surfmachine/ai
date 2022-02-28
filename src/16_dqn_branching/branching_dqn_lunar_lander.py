@@ -1,15 +1,11 @@
 # ---------------------------------------------------------------------------------------------------------------------
 # Aufgabe 16: Branching DQN with soft copy of weights (weighted update) for LunarLander
-# 26.02.2022, Thomas Iten
-#
-# Implementation steps for LundarLander:
-#
+# 28.02.2022, Thomas Iten
 #
 # References:
 # - https://goodboychan.github.io/python/reinforcement_learning/pytorch/udacity/2021/05/07/DQN-LunarLander.html
 # - https://stanford-cs221.github.io/autumn2019-extra/posters/113.pdf
 # - https://github.com/anh-nn01/Lunar-Lander-Double-Deep-Q-Networks/blob/master/Code%20source/Lunar_Lander_v2.py
-#
 # ---------------------------------------------------------------------------------------------------------------------
 import collections
 import os
