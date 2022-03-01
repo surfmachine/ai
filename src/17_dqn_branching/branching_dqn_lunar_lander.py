@@ -7,6 +7,7 @@
 # - https://stanford-cs221.github.io/autumn2019-extra/posters/113.pdf
 # - https://github.com/anh-nn01/Lunar-Lander-Double-Deep-Q-Networks/blob/master/Code%20source/Lunar_Lander_v2.py
 # ---------------------------------------------------------------------------------------------------------------------
+
 import collections
 import os
 import random
@@ -18,14 +19,13 @@ import gym
 
 import torch
 import torch.nn as nn
-import torch.nn.functional as F 
+import torch.nn.functional as F
 import torch.optim as optim
 
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 from scipy.ndimage.filters import gaussian_filter1d
-
 
 # ---------------------------------------------------------------------------------------------------------------------
 # save plot and csv
@@ -135,34 +135,22 @@ class StateDictHelper():
 # BranchingQNetwork
 # ---------------------------------------------------------------------------------------------------------------------
 
-# Variante:
-# Bei der diskreten Variante von Lunar Lander kann DuelingNetwork verwendet werden
-
-class BranchingQNetwork(nn.Module):                 # Agent
-    def __init__(self,
-                 obs,                               # observations
-                 ac_dim, n):                        # continous actions auf n sections discretisiert
+class DuelingNetwork(nn.Module):
+    def __init__(self, obs, ac):
         super().__init__()
-        self.ac_dim = ac_dim
-        self.n = n
-        self.model = nn.Sequential(
-            nn.Linear(obs, 128),                    # Input = Observations
-            nn.ReLU(),
-            nn.Linear(128,128),
-            nn.ReLU() )
-        self.value_head = nn.Linear(128, 1)         # Value State
-                                                    # Advantage pro Action
-        self.adv_heads = nn.ModuleList([nn.Linear(128, n) for i in range(ac_dim)])
+        self.model = nn.Sequential(nn.Linear(obs, 128),
+                                   nn.ReLU(),
+                                   nn.Linear(128,128),
+                                   nn.ReLU())
+        self.value_head = nn.Linear(128, 1)
+        self.adv_head = nn.Linear(128, ac)
 
     def forward(self, x):
         out = self.model(x)
-
         value = self.value_head(out)
-        advs = torch.stack([l(out) for l in self.adv_heads], dim = 1)
-
-        q_val = value.unsqueeze(2) + advs - advs.mean(2, keepdim = True )
+        adv = self.adv_head(out)
+        q_val = value + adv - adv.mean(1).reshape(-1,1)
         return q_val
-
 
     def update_model(self, other_model, tau=None):
         """Updates the model weigths, either 1:1 if tau is None or weighted with tau [0.0 - 1.0).
@@ -225,11 +213,11 @@ class AgentConfig:
 
 
 class BranchingDQNAgent(nn.Module):
-    def __init__(self, obs, ac, n, config):
+    def __init__(self, obs, ac, config):
         super().__init__()
         # Model
-        self.q = BranchingQNetwork(obs, ac, n )
-        self.target = BranchingQNetwork(obs, ac, n )
+        self.q = DuelingNetwork(obs, ac)
+        self.target = DuelingNetwork(obs, ac)
         # self.target.load_state_dict(self.q.state_dict())
         self.target.update_model(self.q, tau=None)
         # Model update parameters
@@ -237,34 +225,27 @@ class BranchingDQNAgent(nn.Module):
         self.target_net_update_freq = config.target_net_update_freq
         self.update_counter = 0
 
-    def get_action(self, x): 
+    def get_action(self, x):
         with torch.no_grad():
-            # a = self.q(x).max(1)[1]
-            out = self.q(x).squeeze(0)                  # Beispiel
-            action = torch.argmax(out, dim = 1)         # Tensor(4) [1,0,3,3] = 4 Aktionen, A1=Bin 1, A2=Bin 0, A3=Bin 3, A4=Bin 3
-        return action.numpy()
+            # action = self.q(x).max(1)[1]
+            out = self.q(x)                # Beispiel
+            action = torch.argmax(out)         # Tensor(4) [1,0,3,3] = 4 Aktionen, A1=Bin 1, A2=Bin 0, A3=Bin 3, A4=Bin 3
+        return action.item()
 
-    def update_policy(self, adam, memory, params): 
+    def update_policy(self, adam, memory, params):
         b_states, b_actions, b_rewards, b_next_states, b_masks = memory.sample(params.batch_size)
         states = torch.tensor(b_states).float()
-        actions = torch.tensor(b_actions).long().reshape(states.shape[0],-1,1)
+        actions = torch.tensor(b_actions).long().reshape(states.shape[0],-1)
         rewards = torch.tensor(b_rewards).float().reshape(-1,1)
         next_states = torch.tensor(b_next_states).float()
         masks = torch.tensor(b_masks).float().reshape(-1,1)
 
-        # Gather: Extraktion Q-Values für Aktionen (Index 2 = dritte Position = continous values)
-        # - self.q(states)   = Tensor(128,4,6) wobei 4 Actions mit 6 continous values
-        # - actions          = Tensor(128,4,1) wobei 4 Actions mit 6 discrete values (bin nummer 0..5), squeeze letzte dim weg nehmen
-        # - current_q_values = Tensor(128,4)   wobei 4 Actions mit 6 continous values
-        current_q_values = self.q(states).gather(2, actions).squeeze(-1)        # 128, 4
+        current_q_values = self.q(states).gather(1, actions).squeeze(-1)        # 128, 4
 
         with torch.no_grad():
-            argmax = torch.argmax(self.q(next_states), dim = 2)
+            argmax = torch.argmax(self.q(next_states), dim = 1)
             # Target ist zuständig für nächsten State, Online zuständig für aktuellen State
-            max_next_q_vals = self.target(next_states).gather(2, argmax.unsqueeze(2)).squeeze(-1)
-            # Original
-            # max_next_q_vals = max_next_q_vals.mean(1, keepdim = True)
-            max_next_q_vals = max_next_q_vals.mean(1, keepdim = True).expand(-1,4) # max_next_q_vals.shape[1]) # Expand to 128,4
+            max_next_q_vals = self.target(next_states).gather(1, argmax.unsqueeze(1))
 
         expected_q_vals = rewards + max_next_q_vals*0.99*masks
         loss = F.mse_loss(expected_q_vals, current_q_values)
@@ -275,17 +256,16 @@ class BranchingDQNAgent(nn.Module):
         adam.step()
 
         self.update_counter += 1
-        if self.update_counter % self.target_net_update_freq == 0: 
+        if self.update_counter % self.target_net_update_freq == 0:
             self.update_counter = 0
             # weighted update
-            # self.target.load_state_dict(self.q.state_dict())
             self.target.update_model(self.q, self.target_net_update_tau)
 
 # ---------------------------------------------------------------------------------------------------------------------
 # TensorEnv and BranchingTensorEnv
 # ---------------------------------------------------------------------------------------------------------------------
 
-class TensorEnv(gym.Wrapper):
+class BranchingTensorEnv(gym.Wrapper):
     def __init__(self, env_name):
         super().__init__(gym.make(env_name))
 
@@ -298,19 +278,6 @@ class TensorEnv(gym.Wrapper):
     def step(self, a):
         ns, r, done, infos = super().step(a)
         return self.process(ns), r, done, infos
-
-
-class BranchingTensorEnv(TensorEnv):
-    def __init__(self, env_name, n):
-        super().__init__(env_name)
-        self.n = n
-        self.discretized = np.linspace(-1.,1., self.n)    # bins=6, aus countinous action werden 6 bins gemacht
-
-    def step(self, a):
-        # aus den 4 actions werden die diskretisierten Werte erstellt anhand
-        # action = np.array([self.discretized[aa] for aa in a]) #bipedal walker
-        action = np.argmax(a)
-        return super().step(action)
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Training
@@ -327,8 +294,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Discretization of continous action space to linespace with n bins
-    bins = 4
-    env = BranchingTensorEnv(args.env, bins)
+    env = BranchingTensorEnv(args.env)
 
     # Initialize Agent (with Branching-Q-Network and Target-Branching-Q-Network), Memory and Optimizer
     config = AgentConfig()
@@ -339,9 +305,8 @@ if __name__ == "__main__":
     print("LunarLander-v2:")
     print("observation space =", observation_space)
     print("action space      =", action_space)
-    print("action bins       =", bins)
 
-    agent = BranchingDQNAgent(observation_space, action_space, bins, config)
+    agent = BranchingDQNAgent(observation_space, action_space, config)
     memory = ExperienceReplayMemory(config.memory_size)
     optimizer = optim.Adam(agent.q.parameters(), lr = config.lr)
 
@@ -357,7 +322,7 @@ if __name__ == "__main__":
         if np.random.random() > epsilon:
             action = agent.get_action(s)
         else:
-            action = np.random.randint(0, bins, size = env.action_space.n)   # TODO action space
+            action = np.random.randint(0, env.action_space.n)   # TODO action space
 
         ns, r, done, infos = env.step(action)
         ep_reward += r
