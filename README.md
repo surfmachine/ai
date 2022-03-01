@@ -24,8 +24,8 @@ Reinforcement Learning:
 - [13 DQN CartPol with PyTorch Lightning](src/13_dqn_simple/dqn_cartpole.ipynb)
 - [14 DQN CartPol with PyTorch](src/14_dqn/cartPoleDqnPyTorch.py)
 - [15 Branching DQN BipedalWalker with PyTorch](src/15_dqn_branching/all_in_one_branching_dqn.py)
-- [16 Branching DQN LunarLander with PyTorch](src/16_dqn_branching/branching_dqn_lunar_lander.py)
 - [16 Branching DQN LunarLanderContinous with PyTorch](src/16_dqn_branching/branching_dqn_lunar_lander_continous.py)
+- [17 Branching DQN LunarLander with PyTorch](src/17_dqn_branching/branching_dqn_lunar_lander.py)
 
 **Quiz**
 - [Layer Shapes](quiz/02_Layer_Shapes.png)

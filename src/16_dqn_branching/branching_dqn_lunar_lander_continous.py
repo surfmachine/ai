@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------------------------------------------------------
 # Aufgabe 16: Branching DQN with LunarLanderContinous
-# 01.03.2022, Thomas Iten
+# 28.02.2022, Thomas Iten
 #
 # References:
 # - https://goodboychan.github.io/python/reinforcement_learning/pytorch/udacity/2021/05/07/DQN-LunarLander.html
