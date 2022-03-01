@@ -1,0 +1,8 @@
+numpy
+pandas
+scipy
+matplotlib
+tqdm
+torch
+box2d-py
+gym[box2d]

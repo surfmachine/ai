@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# Aufgabe 16: Branching DQN with soft copy of weights (weighted update) for LunarLander
+# Aufgabe 16: Branching DQN with soft copy of weights (weighted update) for LunarLander Discrete
 # 28.02.2022, Thomas Iten
 #
 # References:
@@ -134,6 +134,9 @@ class StateDictHelper():
 # ---------------------------------------------------------------------------------------------------------------------
 # BranchingQNetwork
 # ---------------------------------------------------------------------------------------------------------------------
+
+# Variante:
+# Bei der diskreten Variante von Lunar Lander kann DuelingNetwork verwendet werden
 
 class BranchingQNetwork(nn.Module):                 # Agent
     def __init__(self,
