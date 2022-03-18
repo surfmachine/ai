@@ -4,6 +4,7 @@ Aufgaben zum CAS Artificial Intelligence der Berner Fachhochschule BFH.<br />
 Q4/2021 - Q1/2022, Thomas Iten
 
 **Aufgaben**
+Deep Learning
 - [01 Perceptron](src/01_perceptron.py)
 - [02 Gradient Descent](src/02_gradient_descent.ipynb)
 - [03 PyTorch S&P 500 Classifier](src/03_pytorch_sp500_binary.ipynb)
@@ -29,6 +30,13 @@ Reinforcement Learning:
 
 **Quiz**
 - [Layer Shapes](quiz/02_Layer_Shapes.png)
+
+**Exam**
+- [Dense Network](src/20_exam/exam-dl1-dense-network.ipynb)
+- [AutoEncoder](src/20_exam/exam-dl2-auto-encoder.ipynb)
+- [CNN](src/20_exam/exam-dl3-cnn.ipynb)
+
+
 
 **Installation**
 - [Installation Steps](doc/Installation.md)
